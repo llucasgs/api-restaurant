@@ -9,3 +9,5 @@ class AppError {
 }
 
 export { AppError };
+
+// Aqui neste arquivo, criamos uma classe de erro personalizada (erro vindo de uma má requisição do usuário)

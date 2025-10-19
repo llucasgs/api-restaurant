@@ -6,7 +6,10 @@ class ProductController {
     try {
       return response.json({ message: "OK" });
     } catch (error) {
-      next(error); // NextFunction → tipo da função next() usada para passar o controle adiante, geralmente em middlewares ou tratamento de erros. É como um gerente; se o garçom não consegue resolver (erro), ele chama o gerente pra cuidar.
+      next(
+        error
+      ); /* Manda o erro parao Express continuar a cadeia. O NextFunction é o tipo da função next() usada para passar o controle adiante, geralmente em middlewares ou tratamento de erros. É como um gerente; se o garçom não consegue resolver (erro), ele chama o gerente pra cuidar.
+      Quando next(error) é chamado, o Express entende: “Esse middleware não conseguiu lidar, passa para o próximo middleware de erro”.*/
     }
   }
 }

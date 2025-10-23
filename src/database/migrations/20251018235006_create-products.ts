@@ -1,6 +1,6 @@
 import type { Knex } from "knex";
 
-// A função abaixo é executada quando eu colocar no terminal: npx knex migrate:latest
+// A função abaixo é executada quando eu colocar no terminal: npx knex migrate:latest (executo a migration)
 
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable("products", (table) => {
@@ -12,7 +12,7 @@ export async function up(knex: Knex): Promise<void> {
   });
 }
 
-// A função abaixo é executada quando eu colocar no terminal: npx knex migrate:rollback
+// A função abaixo é executada quando eu colocar no terminal: npx knex migrate:rollback (desfaço a migration)
 
 export async function down(knex: Knex): Promise<void> {
   await knex.schema.dropTable("products");

@@ -6,5 +6,6 @@ const productsRoutes = Router(); // Cria um agrupador de rotas.
 const productsController = new ProductController();
 
 productsRoutes.get("/", productsController.index);
+productsRoutes.post("/", productsController.create);
 
 export { productsRoutes };

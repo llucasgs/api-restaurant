@@ -1,12 +1,19 @@
 import { NextFunction, Request, Response } from "express";
-import { db } from "@/database/knex";
+import { knex } from "@/database/knex";
 import { z } from "zod";
 
 class ProductController {
   // Essa é uma classe que centraliza a lógica do recurso “products”.
   async index(request: Request, response: Response, next: NextFunction) {
     try {
-      return response.json({ message: "OK" });
+      const { name } = request.query;
+
+      const products = await knex<ProductRepository>("products")
+        .select()
+        .whereLike("name", `%${name ?? ""}%`)
+        .orderBy("name");
+
+      return response.json(products);
     } catch (error) {
       next(
         error
@@ -26,7 +33,7 @@ class ProductController {
 
       const { name, price } = bodySchema.parse(request.body);
 
-      await db<ProductRepository>("products").insert({ name, price });
+      await knex<ProductRepository>("products").insert({ name, price });
 
       return response.status(201).json();
     } catch (error) {

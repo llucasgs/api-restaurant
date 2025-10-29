@@ -17,6 +17,7 @@ export default {
     directory: "./src/database/migrations",
   },
 
+  // Esse é a configuração para o método de inserir múltiplos registros de uma só vez.
   seeds: {
     extensions: "ts",
     directory: "./src/database/seeds",

@@ -6,6 +6,17 @@ import { z } from "zod";
 class TableSessionController {
   async create(request: Request, response: Response, next: NextFunction) {
     try {
+      const bodySchema = z.object({
+        table_id: z
+          .number({ required_error: "table id is required" })
+          .gt(0, { message: "value must be greater than 0" }),
+      });
+
+      const { table_id } = bodySchema.parse(request.body);
+
+      await knex<TableSessionRepository>("tables_sessions").insert({
+        table_id,
+      });
       return response.status(201).json();
     } catch (error) {
       next(error);

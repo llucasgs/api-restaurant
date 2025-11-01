@@ -20,7 +20,7 @@ class TableController {
     try {
       const bodySchema = z.object({
         table_number: z
-          .number({ required_error: "price is required!" })
+          .number({ required_error: "table number is required!" })
           .gt(0, { message: "value must be greater than 0" }),
       });
 
@@ -53,7 +53,7 @@ class TableController {
 
       const bodySchema = z.object({
         table_number: z
-          .number({ required_error: "price is required!" })
+          .number({ required_error: "table number is required!" })
           .gt(0, { message: "value must be greater than 0" }),
       });
 

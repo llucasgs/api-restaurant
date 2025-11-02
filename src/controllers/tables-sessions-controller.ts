@@ -4,6 +4,20 @@ import { knex } from "@/database/knex";
 import { z } from "zod";
 
 class TableSessionController {
+  async index(request: Request, response: Response, next: NextFunction) {
+    try {
+      const tables_sessions = await knex<TableSessionRepository>(
+        "tables_sessions"
+      )
+        .select()
+        .orderBy("closed_at");
+
+      return response.json(tables_sessions);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async create(request: Request, response: Response, next: NextFunction) {
     try {
       const bodySchema = z.object({

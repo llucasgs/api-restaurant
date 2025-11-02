@@ -92,7 +92,7 @@ class TableSessionController {
       if (!table_id) {
         throw new AppError("session not found");
       }
-      await knex<TableSessionRepository>("tables-sessions")
+      await knex<TableSessionRepository>("tables_sessions")
         .delete()
         .where({ id });
 

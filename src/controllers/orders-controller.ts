@@ -4,7 +4,51 @@ import { knex } from "@/database/knex";
 import { z } from "zod";
 
 class OrderController {
-  async index(request: Request, response: Response, next: NextFunction) {}
+  async index(request: Request, response: Response, next: NextFunction) {
+    try {
+      const paramsSchema = z.object({
+        table_session_id: z
+          .string()
+          .transform((val) => Number(val))
+          .refine((val) => !isNaN(val) && val > 0, {
+            message: "table session ID must be a valid number greater than 0",
+          }),
+      });
+
+      const { table_session_id } = paramsSchema.parse(request.params);
+
+      const session = await knex<TableSessionRepository>("tables_sessions")
+        .where({ id: table_session_id })
+        .first();
+
+      if (!session) {
+        throw new AppError("session table not found");
+      }
+      if (session?.closed_at) {
+        throw new AppError("this table is closed");
+      }
+
+      const orders = await knex<OrderRepository>("orders")
+        .select(
+          "orders.id",
+          "orders.table_session_id",
+          "orders.product_id",
+          "products.name",
+          "orders.quantity",
+          "orders.price",
+          "orders.created_at",
+          "orders.updated_at"
+        )
+        .join("products", "products.id", "orders.product_id")
+        .where({
+          table_session_id,
+        });
+
+      return response.json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
 
   async create(request: Request, response: Response, next: NextFunction) {
     try {
@@ -57,6 +101,7 @@ class OrderController {
   }
 
   async update(request: Request, response: Response, next: NextFunction) {}
+
   async remove(request: Request, response: Response, next: NextFunction) {}
 }
 

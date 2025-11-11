@@ -2,18 +2,18 @@
 
 ## :hammer_and_wrench: Dependências
 
-![npm version](https://img.shields.io/badge/express-4.19.2-brightgreen)
-![npm version](https://img.shields.io/badge/knex-3.1.0-brightgreen)
-![npm version](https://img.shields.io/badge/sqlite3-5.1.7-brightgreen)
-![npm version](https://img.shields.io/badge/zod-3.23.8-brightgreen)
+![Express](https://img.shields.io/badge/Express-4.19.2-000000?style=for-the-badge&logo=express)
+![Knex](https://img.shields.io/badge/Knex-3.1.0-4C4E4E?style=for-the-badge&logo=knex)
+![SQLite](https://img.shields.io/badge/SQLite-5.1.7-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![Zod](https://img.shields.io/badge/Zod-3.23.8-386DFF?style=for-the-badge&logo=zod&logoColor=white)
 
 ## :hammer_and_wrench: Ferramentas de Desenvolvimento
 
-![npm version](https://img.shields.io/badge/@types/express-4.17.21-blue)
-![npm version](https://img.shields.io/badge/@types/node-20.19.22-blue)
-![npm version](https://img.shields.io/badge/ts--node-10.9.2-blue)
-![npm version](https://img.shields.io/badge/tsx-4.16.2-blue)
-![npm version](https://img.shields.io/badge/typescript-5.5.4-blue)
+![TS Express](https://img.shields.io/badge/@types/express-4.17.21-3178C6?style=for-the-badge&logo=typescript)
+![TS Node](https://img.shields.io/badge/@types/node-20.19.22-3C873A?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![ts-node](https://img.shields.io/badge/ts--node-10.9.2-3178C6?style=for-the-badge&logo=typescript)
+![tsx](https://img.shields.io/badge/tsx-4.16.2-3178C6?style=for-the-badge&logo=typescript)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.5.4-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 
 API de gerenciamento de pedidos das mesas de um restaurante. É possível usar a API para:</br>
 

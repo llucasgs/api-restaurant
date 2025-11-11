@@ -52,6 +52,27 @@ class OrderController {
     }
   }
 
+  async show(request: Request, response: Response, next: NextFunction) {
+    try {
+      const { table_session_id } = request.params;
+
+      const order = await knex("orders")
+        .select(
+          knex.raw(
+            "COALESCE(SUM(orders.price * orders.quantity), 0) AS total_orders_price"
+          ),
+          knex.raw("COALESCE(SUM(orders.quantity), 0) AS total_items_quantity")
+        )
+        .where({ table_session_id })
+        .orderBy("created_at", "desc")
+        .first();
+
+      return response.json(order);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async create(request: Request, response: Response, next: NextFunction) {
     try {
       const bodySchema = z.object({
@@ -102,9 +123,30 @@ class OrderController {
     }
   }
 
-  async update(request: Request, response: Response, next: NextFunction) {}
+  async remove(request: Request, response: Response, next: NextFunction) {
+    try {
+      const id = z
+        .string()
+        .transform((value) => Number(value))
+        .refine((value) => !isNaN(value), { message: "id must be a number" })
+        .parse(request.params.id);
 
-  async remove(request: Request, response: Response, next: NextFunction) {}
+      const order_id = await knex<OrderRepository>("orders")
+        .select()
+        .where({ id })
+        .first();
+
+      if (!order_id) {
+        throw new AppError("order not found");
+      }
+
+      await knex<OrderRepository>("orders").delete().where({ id });
+
+      return response.json();
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export { OrderController };
